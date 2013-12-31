@@ -1,0 +1,143 @@
+﻿<Window 
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+       Title="KiSim" Height="377" Width="562">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Quit..." Click="MenuQuit_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Can">
+                    <MenuItem Header="_Run" Click="MenuRun_Click"/>
+                    <MenuItem Header="_Stop" Click="MenuStop_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_About..." Click="MenuAbout_Click"/>
+                </MenuItem>
+            </Menu>
+            <ToolBarTray Background="White" DockPanel.Dock="Top">
+                <ToolBar Band="1" BandIndex="1">
+                    <Button Content="Run" Click="MenuRun_Click"/>
+                    <Button Content="Stop" Click="MenuStop_Click"/>
+                </ToolBar>
+            </ToolBarTray>
+            <TabControl DockPanel.Dock="Top" Margin="0,0,0,0">
+                <TabItem Header="CAN Messages">
+                    <Grid Background="#FFE5E5E5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="107*"/>
+                            <ColumnDefinition Width="441*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListView x:Name="CanIdView" FontFamily="Consolas" Grid.ColumnSpan="2" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count}" />
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="BAP">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="BapView" FontFamily="Consolas" Grid.ColumnSpan="2" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Direction" DisplayMemberBinding="{Binding Direction}" />
+                                    <GridViewColumn Header="Timestamp" DisplayMemberBinding="{Binding Timestamp}" />
+                                    <GridViewColumn Header="CanId" DisplayMemberBinding="{Binding CanId}" />
+                                    <GridViewColumn Header="Opcode" DisplayMemberBinding="{Binding Opcode}" />
+                                    <GridViewColumn Header="LsgId" DisplayMemberBinding="{Binding LsgId}" />
+                                    <GridViewColumn Header="FctId" DisplayMemberBinding="{Binding FctId}" />
+                                    <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Data}" />
+                                    <GridViewColumn Header="Text" DisplayMemberBinding="{Binding Text}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Control">
+                    <Grid Background="#FFE5E5E5">
+                        <ToggleButton x:Name="ButtonKL15" Content="KL15" HorizontalAlignment="Left" Margin="27,24,0,0" VerticalAlignment="Top" Width="75" Checked="ButtonKL15_Checked"/>
+                        <TextBox x:Name="VidTextbox" HorizontalAlignment="Left" Height="23" Margin="318,25,0,0" TextWrapping="Wrap" Text="WVWZZZAAAAA000000" VerticalAlignment="Top" Width="180" TextChanged="VidChanged"/>
+                        <Label Content="VID" HorizontalAlignment="Left" Margin="272,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.586,0.923"/>
+                        <TextBox x:Name="FctId19" HorizontalAlignment="Left" Height="23" Margin="147,105,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+                        <Button x:Name="FctId19Set" Content="Set" HorizontalAlignment="Left" Margin="288,108,0,0" VerticalAlignment="Top" Width="75" Click="FctId19Set_Click"/>
+                        <Button x:Name="FctId19Get" Content="Get" HorizontalAlignment="Left" Margin="288,133,0,0" VerticalAlignment="Top" Width="75" Click="FctId19Get_Click"/>
+                        <TextBox x:Name="Nav" HorizontalAlignment="Left" Height="23" Margin="147,224,0,0" TextWrapping="Wrap" Text="0123456789ABCDEF" VerticalAlignment="Top" Width="120"/>
+                        <Button x:Name="NavSet" Content="Set" HorizontalAlignment="Left" Margin="288,227,0,0" VerticalAlignment="Top" Width="75" Click="NavSet_Click"/>
+                        <Label Content="FocusData" HorizontalAlignment="Left" Margin="73,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.586,0.923" Width="69"/>
+                        <Label Content="NavPos" HorizontalAlignment="Left" Margin="73,224,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.586,0.923" Width="69"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Display/MFL (Debug)">
+                    <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
+                        <TabControl Margin="10,10,10,142" x:Name="ScreenTabControl" FontFamily="Consolas"/>
+                        <Grid Height="137" VerticalAlignment="Bottom">
+                            <Button Content="Vol+" HorizontalAlignment="Left" Margin="111,33,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="&lt;" HorizontalAlignment="Left" Margin="36,53,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="Vol-" HorizontalAlignment="Left" Margin="111,73,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="&gt;" HorizontalAlignment="Left" Margin="186,53,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="Phone" HorizontalAlignment="Left" Margin="111,53,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="Up" HorizontalAlignment="Left" Margin="348,33,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyUp"/>
+                            <Button Content="&lt;&lt;" HorizontalAlignment="Left" Margin="273,53,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="Down" HorizontalAlignment="Left" Margin="348,73,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyDown"/>
+                            <Button Content="&gt;&gt;" HorizontalAlignment="Left" Margin="423,53,0,0" VerticalAlignment="Top" Width="75" />
+                            <Button Content="OK" HorizontalAlignment="Left" Margin="348,53,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyOk"/>
+                            <Button Content="Voice" HorizontalAlignment="Left" Margin="111,109,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyVoice"/>
+                            <Button Content="Back" HorizontalAlignment="Left" Margin="348,109,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyBack"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Display/MFL">
+                    <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
+
+                        <Grid Background="#000000" Margin="213,60,0,0" HorizontalAlignment="Left" Width="133" Height="128" VerticalAlignment="Top">
+                            <Rectangle x:Name="KiLine0" Fill="#FFFFFF" Height="2" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0"/>
+                            <Label x:Name="KiText0" Foreground="#FFFFFF"  Content="Ki_Line0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116"/>
+                            <Rectangle x:Name="KiLine1" Fill="#FFFFFF" Height="2" Margin="0,31,0,0" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0"/>
+                            <Label x:Name="KiText1" Foreground="#FFFFFF"  Content="Ki_Line1" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="116"/>
+                            <Rectangle x:Name="KiLine2" Fill="#FFFFFF" Height="2" Margin="0,62,0,0" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0"/>
+                            <Label x:Name="KiText2" Foreground="#FFFFFF"  Content="Ki_Line2" HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top" Width="116"/>
+                            <Rectangle x:Name="KiLine3" Fill="#FFFFFF" Height="2" Margin="0,93,0,0" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0"/>
+                            <Label x:Name="KiText3" Foreground="#FFFFFF"  Content="Ki_Line3" HorizontalAlignment="Left" Margin="0,93,0,0" VerticalAlignment="Top" Width="116"/>
+                            <Rectangle x:Name="KiLine4" Fill="#FFFFFF" Height="2" Margin="0,124,0,0" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0"/>
+                            <TextBlock x:Name="KiFocus0" Foreground="#FFFFFF" HorizontalAlignment="Left" Margin="106,7,0,0" VerticalAlignment="Top" Width="10" Height="16">◀</TextBlock>
+                            <TextBlock x:Name="KiFocus1" Foreground="#FFFFFF" HorizontalAlignment="Left" Margin="106,41,0,0" VerticalAlignment="Top" Width="10" Height="16">◀</TextBlock>
+                            <TextBlock x:Name="KiFocus2" Foreground="#FFFFFF" HorizontalAlignment="Left" Margin="106,69,0,0" VerticalAlignment="Top" Width="10" Height="16">◀</TextBlock>
+                            <TextBlock x:Name="KiFocus3" Foreground="#FFFFFF" HorizontalAlignment="Left" Margin="106,100,0,0" VerticalAlignment="Top" Width="10" Height="16">◀</TextBlock>
+                            <ScrollBar x:Name="KiScrollbar" Width="17" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Grid Height="137" VerticalAlignment="Bottom">
+                            <Button Content="Up" HorizontalAlignment="Left" Margin="431,-42,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyUp"/>
+                            <Button Content="Down" HorizontalAlignment="Left" Margin="431,10,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyDown"/>
+                            <Button Content="OK" HorizontalAlignment="Left" Margin="431,-17,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyOk"/>
+                            <Button Content="Voice" HorizontalAlignment="Left" Margin="431,60,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyVoice"/>
+                            <Button Content="Back" HorizontalAlignment="Left" Margin="431,35,0,0" VerticalAlignment="Top" Width="75" Click="BapKeyBack"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="BAPLog">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="BapLog" FontFamily="Consolas" Grid.ColumnSpan="2" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Direction" DisplayMemberBinding="{Binding Direction}" />
+                                    <GridViewColumn Header="Timestamp" DisplayMemberBinding="{Binding Timestamp}" />
+                                    <GridViewColumn Header="CanId" DisplayMemberBinding="{Binding CanId}" />
+                                    <GridViewColumn Header="Opcode" DisplayMemberBinding="{Binding Opcode}" />
+                                    <GridViewColumn Header="LsgId" DisplayMemberBinding="{Binding LsgId}" />
+                                    <GridViewColumn Header="FctId" DisplayMemberBinding="{Binding FctId}" />
+                                    <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Data}" />
+                                    <GridViewColumn Header="Text" DisplayMemberBinding="{Binding Text}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window> 

@@ -1,0 +1,16 @@
+This currently requires IronPython and uses WPF. 
+
+It emulates all necessary CAN messages to talk to a Novero HT-4 or HT-5 
+bluetooth kit and display the  main menu. Other than that, it's a 
+horrible hack that I'm not proud on releasing, but it's a tool. 
+
+It interfaces with a LAWICEL CANUSB device, which must be given on 
+the command line.
+
+For example:
+
+IronPython.exe KiSim.py --canusb COM7
+
+pyevent.py (the IronPython one) is required. 
+
+Felix Domke <tmbinc@elitedvb.net>
