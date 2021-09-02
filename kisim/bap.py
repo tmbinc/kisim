@@ -53,6 +53,6 @@ class Bap:
             while len(data):
                 res.append((id, chr(idx) + data[:7]))
                 data = data[7:]
-            idx += 1
+                idx += 1
 
         return res
